@@ -254,14 +254,14 @@ r.get('https://core.telegram.org/bots/api', {}, (err, resp) => {
         mintext += `export interface ${v.name}{${minfields}}\n`;
     });
 
-    fs.writeFile('./src/index.ts', text, (err, data) => {
+    fs.writeFile('./lib/index.d.ts', text, (err, data) => {
         if (err)
             return console.error(err);
     });
 
 
     // not used but you can
-    // fs.writeFile('./src/index.min.ts', mintext, (err, data) => {
+    // fs.writeFile('./lib/index.min.d.ts', mintext, (err, data) => {
     //     if (err)
     //         return console.error(err);
     // });

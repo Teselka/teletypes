@@ -4,7 +4,7 @@
   "description": "Half-machine parsed types for the Telegram Bot API",
   "main": "lib/index.js",
   "exports": {
-    ".": "./lib/index.js"
+    ".": "./index.js"
   },
   "scripts": {
     "dump": "node scripts/dump.js",
@@ -23,7 +23,10 @@
     "teletypes",
     "telegram-bots",
     "telegram-bot",
-    "bot"
+    "bot",
+    "types",
+    "typings",
+    "api"
   ],
   "author": "Teselka",
   "license": "MIT",
@@ -32,8 +35,7 @@
   },
   "homepage": "https://github.com/Teselka/teletypes#readme",
   "directories": {
-    "lib": "lib",
-    "test": "tests"
+    "lib": "lib"
   },
   "devDependencies": {
     "@types/node": "^18.0.0",
