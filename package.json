@@ -9,7 +9,6 @@
   "scripts": {
     "dump": "node scripts/dump.js",
     "prepublish": "npm run test && npm run dump",
-    "publish": "npm publish",
     "test": "tsc test/index.ts"
   },
   "repository": {
