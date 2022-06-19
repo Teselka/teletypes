@@ -1,6 +1,6 @@
 {
   "name": "teletypes",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Half-machine parsed types for the Telegram Bot API",
   "main": "./lib/index.js",
   "exports": {
@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dump": "node scripts/dump.js",
-    "prepublish": "npm run test && npm run dump",
+    "prepublishOnly": "npm run test && npm run dump",
     "test": "tsc test/index.ts"
   },
   "repository": {
