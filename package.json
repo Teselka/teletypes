@@ -8,10 +8,7 @@
   },
   "scripts": {
     "dump": "node scripts/dump.js",
-    "build": "tsc --build",
-    "pretest": "npm run build",
-    "test": "npm run test",
-    "prepublish": "npm run dump && npm run build",
+    "prepublish": "npm run dump",
     "publish": "npm publish"
   },
   "repository": {
