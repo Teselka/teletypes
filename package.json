@@ -39,7 +39,6 @@
   },
   "devDependencies": {
     "libgovno": "^1.2.0",
-    "node-html-parser": "^5.3.3",
-    "xml2js": "^0.4.23"
+    "node-html-parser": "^5.3.3"
   }
 }
