@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "outDir": "lib/",
+        "rootDir": "src/",
+        "declaration": true,
+        "declarationDir": "typings/",
+        "target": "es5"
+    },
+    "include": ["src/"]
+}
