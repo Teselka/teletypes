@@ -201,12 +201,12 @@ r.get('https://core.telegram.org/bots/api', {}, (err, resp) => {
     let mintext = text;
 
     // forward declaration for everything
-    forwardtypes.forEach(v => {
-        if (!nofieldtypes.find(e => { return e.name == v; }) && !mergedtypes.find(e => { return e.name == v; })) {
-            text += `export declare interface ${v}{};\n`;
-            mintext += `export declare interface ${v}{};`;
-        }
-    });
+    // forwardtypes.forEach(v => {
+    //     if (!nofieldtypes.find(e => { return e.name == v; }) && !mergedtypes.find(e => { return e.name == v; })) {
+    //         text += `export declare interface ${v}{};\n`;
+    //         mintext += `export declare interface ${v}{};`;
+    //     }
+    // });
 
     text += `\n/* [BLOCK] Not fully documentated types with unkown structure/type */\n\n`;
     forwardtypes.forEach(v => {

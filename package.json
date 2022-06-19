@@ -2,14 +2,15 @@
   "name": "teletypes",
   "version": "1.0.0",
   "description": "Half-machine parsed types for the Telegram Bot API",
-  "main": "lib/index.js",
+  "main": "./lib/index.js",
   "exports": {
-    ".": "./index.js"
+    ".": "./lib/index.js"
   },
   "scripts": {
     "dump": "node scripts/dump.js",
-    "prepublish": "npm run dump",
-    "publish": "npm publish"
+    "prepublish": "npm run test && npm run dump",
+    "publish": "npm publish",
+    "test": "tsc test/index.ts"
   },
   "repository": {
     "type": "git",
@@ -26,18 +27,23 @@
     "api"
   ],
   "author": "Teselka",
+  "types": "./lib/index.d.ts",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Teselka/teletypes/issues"
   },
   "homepage": "https://github.com/Teselka/teletypes#readme",
   "directories": {
-    "lib": "lib"
+    "lib": "lib",
+    "test": "test"
   },
   "devDependencies": {
     "@types/node": "^18.0.0",
     "libgovno": "^1.2.0",
     "node-html-parser": "^5.3.3",
     "xml2js": "^0.4.23"
+  },
+  "dependencies": {
+    "typegram": "^3.9.2"
   }
 }

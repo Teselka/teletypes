@@ -1,0 +1,19 @@
+import { Chat, User, Message } from '../lib/index';
+
+// some typescript usage to verify that our library is working
+const chat: Chat = {
+    id: 0,
+    type: 'yes'
+};
+
+const user: User = {
+    id: 0,
+    first_name: 'yes',
+    is_bot: false
+}
+
+const msg: Message = {
+    message_id: 0,
+    date: 0,
+    chat: chat
+};
