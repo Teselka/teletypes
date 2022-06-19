@@ -8,9 +8,8 @@ on:
       - 'master'
 
 jobs:
-  execute:
+  run_schedule:
     runs-on: ubuntu-latest
-
     steps:
       - name: Build and publish to npm
         run : |
