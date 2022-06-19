@@ -8,12 +8,8 @@ on:
       - master
 
 jobs:
-  pull-data:
+  execute:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [16.x]
 
     steps:
       - name: Build and publish to npm
