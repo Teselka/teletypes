@@ -2,10 +2,10 @@ name: Run scheduled action
 on:
   schedule:
     - cron: '30 5,17 * * *'
-
+  
   push:
     tags:
-      - master
+      - 'master'
 
 jobs:
   execute:
