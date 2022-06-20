@@ -15,7 +15,7 @@ jobs:
     steps:
     - name: Get current date
       id: date
-      run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+      run: echo "::set-output name=date::$(date +'%m-%d-%mm')"
     - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
@@ -35,7 +35,7 @@ jobs:
         git config --global user.name "username"
         git config --global user.email "user email"
         git add "lib/index.d.ts"
-        git commit -m "Update schedule ${{ steps.date.outputs.date }}"
+        git commit -m "👀 Automated update ${{ steps.date.outputs.date }}"
         git push
     - name: Exit with status 0
       if: ${{ failure() }}
