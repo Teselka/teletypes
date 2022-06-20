@@ -4,7 +4,9 @@
   "description": "Half-machine parsed types for the Telegram Bot API",
   "main": "./lib/index.js",
   "exports": {
-    ".": "./lib/index.js"
+    ".": "./lib/index.js",
+    "./types": "./lib/types.js",
+    "./methods": "./lib.methods.js"
   },
   "scripts": {
     "dump": "node scripts/dump.js",

@@ -4,7 +4,7 @@ const html = require('node-html-parser');
 const fs = require('fs');
 
 let forwardtypes = [];
-const resolve_type = ((raw) => {
+const resolve_type = ((raw, asmethodarg) => {
     switch(raw) {
     case 'True':
     case 'Boolean': { return 'boolean'; }
@@ -15,26 +15,47 @@ const resolve_type = ((raw) => {
     default: {
         let arr = raw.split(/^Array of /, 2);
         if (arr.length == 2) {
-            return `${resolve_type(arr[1])}[]`;
+            let narr = arr[1].split(', ');
+            if (narr.length > 1) {
+                let text = `Array<${resolve_type(narr[0], asmethodarg)}`;
+                let isfirst = true;
+                console.log(narr)
+                narr.forEach(v => { if (!isfirst) { text += ` | ${resolve_type(v, asmethodarg)}`; } isfirst = false; });
+                text += '>';
+                return text;
+            }
+
+            return `${resolve_type(arr[1], asmethodarg)}[]`;
         }
 
-        arr = raw.split(' or ');
-        if (arr.length > 1) {
-            let type = `${resolve_type(arr[0])}`;
-            let isfirst = true;
-            arr.forEach(v => {
-                if (!isfirst)
-                    type += ` | ${resolve_type(v)}`; 
-                isfirst = false;
-            });
+        const orfn = ((separator) => {
+            arr = raw.split(separator);
+            if (arr.length > 1) {
+                let type = `${resolve_type(arr[0], asmethodarg)}`;
+                let isfirst = true;
+                arr.forEach(v => {
+                    if (!isfirst)
+                        type += ` | ${resolve_type(v, asmethodarg)}`; 
+                    isfirst = false;
+                });
 
-            return type;
+                return type;
+            }
+        });
+
+        {
+            let a = orfn(' or ');
+            if (a)
+                return a;
+            let b = orfn(' and ');
+            if (b)
+                return b;
         }
         
         if (!forwardtypes.includes(raw))
             forwardtypes.push(raw);
         
-        return raw;
+        return (asmethodarg && `T.${raw}` || raw);
     };
     }
 })
@@ -47,6 +68,7 @@ r.get('https://core.telegram.org/bots/api', {}, (err, resp) => {
     const content = root.querySelector('#dev_page_content');
     
     const typelist = [];
+    const funclist = [];
 
     const first = (() => {
         let elem = null;
@@ -69,6 +91,7 @@ r.get('https://core.telegram.org/bots/api', {}, (err, resp) => {
     let typefields = [];
     let rownames = {};
     let wasmethodtable = false;
+    let wasunknowntable = false;
     let nofieldtypes = [];
 
     let mergetypesleft = 0;
@@ -80,17 +103,19 @@ r.get('https://core.telegram.org/bots/api', {}, (err, resp) => {
         if (it.tagName == 'H3') {
             inparse = false;
             wasmethodtable = false;
+            wasunknowntable = false;
         }
         else if (it.tagName == 'H4') {
             inparse = true;
             typename = it.textContent;
             wasmethodtable = false;
+            wasunknowntable = false;
         }
         else if (inparse && it.tagName == 'P') {
             typedesc = it.textContent;
             const next = it.nextElementSibling;
             
-            if (!wasmethodtable && next && next.tagName != 'TABLE' && typename.split(' ', 2).length == 1) {
+            if (!wasmethodtable && !wasunknowntable && next && next.tagName != 'TABLE' && typename.split(' ', 2).length == 1) {
                 if (next.tagName == 'UL') {
                     let count = 0;
 
@@ -107,6 +132,7 @@ r.get('https://core.telegram.org/bots/api', {}, (err, resp) => {
                     nofieldtypes.push({name:typename, desc: typedesc})
             }
             wasmethodtable = false;
+            wasunknowntable = false;
         }
         else if (inparse && it.tagName == 'TABLE') {
             //assert(it.childNodes.length == 5, `Unexpected table elements count! Expected 5, found ${it.childNodes.length}!`);
@@ -116,6 +142,7 @@ r.get('https://core.telegram.org/bots/api', {}, (err, resp) => {
                     v.childNodes.forEach((v, i) => {
                         if (v.tagName == 'TR') {
                             const cmp = ['Field', 'Type', 'Description'];
+                            const fncmp = ['Parameter', 'Type', 'Required', 'Description'];
                             //assert(v.childNodes.length == cmp.length, `Unexpected table list count! Expected ${cmp.length}, found ${v.childNodes.length}!`);
         
                             rownames = [];
@@ -124,9 +151,13 @@ r.get('https://core.telegram.org/bots/api', {}, (err, resp) => {
                                     rownames.push(v.textContent);
 
                                     if (!cmp.includes(v.textContent)) {
-                                        //console.assert(false, `Unexpected table head name "${v.textContent}", expected one of these: [${cmp}]. Skipping...`);
+                                        if (!fncmp.includes(v.textContent)) {
+                                            console.assert(false, `Unexpected table head name "${v.textContent}", expected one of these: [${cmp}]. Skipping...`);
+                                            wasunknowntable = true;
+                                            return true;
+                                        }
+                                        
                                         wasmethodtable = true;
-                                        return true;
                                     }
                                     
                                     
@@ -141,7 +172,7 @@ r.get('https://core.telegram.org/bots/api', {}, (err, resp) => {
                 }
             });
 
-            if (wasmethodtable) {
+            if (wasunknowntable) {
                 continue;
             }
 
@@ -164,21 +195,27 @@ r.get('https://core.telegram.org/bots/api', {}, (err, resp) => {
                 }
             });
 
-
             const fields = [];
+
             typefields.forEach(v => {
                 const obj = {};
                 
                 Object.entries(v).forEach(v => {
                     switch(v[0]) {
+                    case 'Parameter': { if (wasmethodtable) { obj.name = v[1]; } break; }
                     case 'Field': { obj.name = v[1]; break;}
                     case 'Type': {
-                        obj.type = resolve_type(v[1]);
+                        obj.type = resolve_type(v[1], wasmethodtable);
                         break;
                     }
+                    case 'Required': { obj.optional = v[1].startsWith('Optional'); break; }
                     case 'Description': { 
-                        obj.optional = v[1].startsWith('Optional. ');
-                        obj.desc = obj.optional && v[1].split('Optional. ', 2)[1] || v[1];
+                        if (wasmethodtable) {
+                            obj.optional = v[1].startsWith('Optional. ');
+                            obj.desc = obj.optional && v[1].split('Optional. ', 2)[1] || v[1];
+                        }
+                        else
+                            obj.desc = v[1];
                         break;
                     }
                     }
@@ -187,11 +224,21 @@ r.get('https://core.telegram.org/bots/api', {}, (err, resp) => {
                 fields.push(obj);
             });
 
-            typelist.push({
-                name: typename,
-                desc: typedesc,
-                fields: fields
-            });
+            if (wasmethodtable) {
+                funclist.push({
+                    name: typename,
+                    desc: typedesc,
+                    fields: fields
+                });
+            }
+            else {
+                typelist.push({
+                    name: typename,
+                    desc: typedesc,
+                    fields: fields
+                });
+            }
+            
 
             inparse = false;
         }
@@ -213,7 +260,7 @@ r.get('https://core.telegram.org/bots/api', {}, (err, resp) => {
         const e = nofieldtypes.find(e => { return e.name == v; });
         if (e && !typelist.find(e => { return e.name == v; }) && !mergedtypes.find(e => { return e.name == v; })) {
             text += `/** ${e.desc} */\ntype ${e.name} = any; \n\n`;
-            mintext += `/** ${e.desc} */type ${e.name} = any;`;
+            mintext += `type ${e.name} = any;`;
         }
     });
 
@@ -254,10 +301,37 @@ r.get('https://core.telegram.org/bots/api', {}, (err, resp) => {
         mintext += `export interface ${v.name}{${minfields}}\n`;
     });
 
-    fs.writeFile('./lib/index.d.ts', text, (err, data) => {
+    let functext = '/* This file was automatically generated by https://github.com/teletypes/js */\n\nimport * as T from \'./types\';\n\nexport interface Methods {';
+    funclist.forEach(v => {
+        let fields = ''; 
+        v.fields.forEach(v => {
+            let type = v.type;
+            if (typeof type == 'object') {
+                type = v.type[0];
+                let isfirst = false;
+
+                v.type.forEach(v => { type += `${isfirst && v || ''}`; isfirst = true; })
+            }
+
+            fields += `\n\t\t/** ${v.desc} */\n\t\t${v.name}${v.optional && '?' || ''}: ${v.type},`;
+        });
+        functext += `\t/** ${v.desc} */\n\t${v.name}(args: {${fields}\n\t}): any;\n\n`;
+        //console.log(v.fields)
+    });
+    functext += '}';
+
+    fs.writeFile('./lib/types.d.ts', text, (err, data) => {
         if (err)
             return console.error(err);
     });
+
+    fs.writeFile('./lib/methods.d.ts', functext, (err, data) => {
+        if (err)
+            return console.error(err);
+    });
+
+
+    //console.log(funclist);
 
 
     // not used but you can
