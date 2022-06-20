@@ -10,11 +10,13 @@ You can dm me if there any issues with this repository.
 
 #### Simple usage example
 ```ts
-import { Message } from 'teletypes'
+import { Message, Methods } from 'teletypes'
 
 const msg: Message = {
   message_id: 0,
   date: 0,
   chat: { id: 0, types: 'yes' }
 };
+
+const sendmsg: Methods.sendMessage = () => {};
 ```
