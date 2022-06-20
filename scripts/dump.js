@@ -152,7 +152,7 @@ r.get('https://core.telegram.org/bots/api', {}, (err, resp) => {
 
                                     if (!cmp.includes(v.textContent)) {
                                         if (!fncmp.includes(v.textContent)) {
-                                            console.assert(false, `Unexpected table head name "${v.textContent}", expected one of these: [${cmp}]. Skipping...`);
+                                            console.warn(`Unexpected table head name "${v.textContent}", expected one of these: [${cmp}] or these [${fncmp}]. Skipping...`);
                                             wasunknowntable = true;
                                             return true;
                                         }
@@ -208,9 +208,9 @@ r.get('https://core.telegram.org/bots/api', {}, (err, resp) => {
                         obj.type = resolve_type(v[1], wasmethodtable);
                         break;
                     }
-                    case 'Required': { obj.optional = v[1].startsWith('Optional'); break; }
+                    case 'Required': { obj.optional = v[1].startsWith('True'); break; }
                     case 'Description': { 
-                        if (wasmethodtable) {
+                        if (!wasmethodtable) {
                             obj.optional = v[1].startsWith('Optional. ');
                             obj.desc = obj.optional && v[1].split('Optional. ', 2)[1] || v[1];
                         }

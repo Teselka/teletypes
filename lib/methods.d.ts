@@ -26,7 +26,7 @@ export interface Methods {	/** Use this method to send text messages. On success
 		reply_markup: T.InlineKeyboardMarkup | T.ReplyKeyboardMarkup | T.ReplyKeyboardRemove | T.ForceReply,
 	}): any;
 
-	/** Use this method to forward messages of any kind. Service messages can&#39;t be forwarded. On success, the sent Message is returned. */
+	/** Use this method to forward messages of any kind. Service messages can't be forwarded. On success, the sent Message is returned. */
 	forwardMessage(args: {
 		/** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
 		chat_id: number | string,
@@ -40,7 +40,7 @@ export interface Methods {	/** Use this method to send text messages. On success
 		message_id: number,
 	}): any;
 
-	/** Use this method to copy messages of any kind. Service messages and invoice messages can&#39;t be copied. The method is analogous to the method forwardMessage, but the copied message doesn&#39;t have a link to the original message. Returns the MessageId of the sent message on success. */
+	/** Use this method to copy messages of any kind. Service messages and invoice messages can't be copied. The method is analogous to the method forwardMessage, but the copied message doesn't have a link to the original message. Returns the MessageId of the sent message on success. */
 	copyMessage(args: {
 		/** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
 		chat_id: number | string,
@@ -476,7 +476,7 @@ export interface Methods {	/** Use this method to send text messages. On success
 		limit: number,
 	}): any;
 
-	/** Use this method to get basic information about a file and prepare it for downloading. For the moment, bots can download files of up to 20MB in size. On success, a File object is returned. The file can then be downloaded via the link https://api.telegram.org/file/bot&lt;token&gt;/&lt;file_path&gt;, where &lt;file_path&gt; is taken from the response. It is guaranteed that the link will be valid for at least 1 hour. When the link expires, a new one can be requested by calling getFile again. */
+	/** Use this method to get basic information about a file and prepare it for downloading. For the moment, bots can download files of up to 20MB in size. On success, a File object is returned. The file can then be downloaded via the link https://api.telegram.org/file/bot<token>/<file_path>, where <file_path> is taken from the response. It is guaranteed that the link will be valid for at least 1 hour. When the link expires, a new one can be requested by calling getFile again. */
 	getFile(args: {
 		/** File identifier to get information about */
 		file_id: string,
@@ -494,7 +494,7 @@ export interface Methods {	/** Use this method to send text messages. On success
 		revoke_messages: boolean,
 	}): any;
 
-	/** Use this method to unban a previously banned user in a supergroup or channel. The user will not return to the group or channel automatically, but will be able to join via link, etc. The bot must be an administrator for this to work. By default, this method guarantees that after the call the user is not a member of the chat, but will be able to join it. So if the user is a member of the chat they will also be removed from the chat. If you don&#39;t want this, use the parameter only_if_banned. Returns True on success. */
+	/** Use this method to unban a previously banned user in a supergroup or channel. The user will not return to the group or channel automatically, but will be able to join via link, etc. The bot must be an administrator for this to work. By default, this method guarantees that after the call the user is not a member of the chat, but will be able to join it. So if the user is a member of the chat they will also be removed from the chat. If you don't want this, use the parameter only_if_banned. Returns True on success. */
 	unbanChatMember(args: {
 		/** Unique identifier for the target group or username of the target supergroup or channel (in the format @channelusername) */
 		chat_id: number | string,
@@ -556,7 +556,7 @@ export interface Methods {	/** Use this method to send text messages. On success
 		custom_title: string,
 	}): any;
 
-	/** Use this method to ban a channel chat in a supergroup or a channel. Until the chat is unbanned, the owner of the banned chat won&#39;t be able to send messages on behalf of any of their channels. The bot must be an administrator in the supergroup or channel for this to work and must have the appropriate administrator rights. Returns True on success. */
+	/** Use this method to ban a channel chat in a supergroup or a channel. Until the chat is unbanned, the owner of the banned chat won't be able to send messages on behalf of any of their channels. The bot must be an administrator in the supergroup or channel for this to work and must have the appropriate administrator rights. Returns True on success. */
 	banChatSenderChat(args: {
 		/** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
 		chat_id: number | string,
@@ -640,7 +640,7 @@ export interface Methods {	/** Use this method to send text messages. On success
 		user_id: number,
 	}): any;
 
-	/** Use this method to set a new profile photo for the chat. Photos can&#39;t be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns True on success. */
+	/** Use this method to set a new profile photo for the chat. Photos can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns True on success. */
 	setChatPhoto(args: {
 		/** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
 		chat_id: number | string,
@@ -648,13 +648,13 @@ export interface Methods {	/** Use this method to send text messages. On success
 		photo: T.InputFile,
 	}): any;
 
-	/** Use this method to delete a chat photo. Photos can&#39;t be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns True on success. */
+	/** Use this method to delete a chat photo. Photos can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns True on success. */
 	deleteChatPhoto(args: {
 		/** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
 		chat_id: number | string,
 	}): any;
 
-	/** Use this method to change the title of a chat. Titles can&#39;t be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns True on success. */
+	/** Use this method to change the title of a chat. Titles can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns True on success. */
 	setChatTitle(args: {
 		/** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
 		chat_id: number | string,
@@ -670,7 +670,7 @@ export interface Methods {	/** Use this method to send text messages. On success
 		description: string,
 	}): any;
 
-	/** Use this method to add a message to the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the &#39;can_pin_messages&#39; administrator right in a supergroup or &#39;can_edit_messages&#39; administrator right in a channel. Returns True on success. */
+	/** Use this method to add a message to the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can_pin_messages' administrator right in a supergroup or 'can_edit_messages' administrator right in a channel. Returns True on success. */
 	pinChatMessage(args: {
 		/** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
 		chat_id: number | string,
@@ -680,7 +680,7 @@ export interface Methods {	/** Use this method to send text messages. On success
 		disable_notification: boolean,
 	}): any;
 
-	/** Use this method to remove a message from the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the &#39;can_pin_messages&#39; administrator right in a supergroup or &#39;can_edit_messages&#39; administrator right in a channel. Returns True on success. */
+	/** Use this method to remove a message from the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can_pin_messages' administrator right in a supergroup or 'can_edit_messages' administrator right in a channel. Returns True on success. */
 	unpinChatMessage(args: {
 		/** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
 		chat_id: number | string,
@@ -688,7 +688,7 @@ export interface Methods {	/** Use this method to send text messages. On success
 		message_id: number,
 	}): any;
 
-	/** Use this method to clear the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the &#39;can_pin_messages&#39; administrator right in a supergroup or &#39;can_edit_messages&#39; administrator right in a channel. Returns True on success. */
+	/** Use this method to clear the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can_pin_messages' administrator right in a supergroup or 'can_edit_messages' administrator right in a channel. Returns True on success. */
 	unpinAllChatMessages(args: {
 		/** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
 		chat_id: number | string,
@@ -754,7 +754,7 @@ export interface Methods {	/** Use this method to send text messages. On success
 		cache_time: number,
 	}): any;
 
-	/** Use this method to change the list of the bot&#39;s commands. See https://core.telegram.org/bots#commands for more details about bot commands. Returns True on success. */
+	/** Use this method to change the list of the bot's commands. See https://core.telegram.org/bots#commands for more details about bot commands. Returns True on success. */
 	setMyCommands(args: {
 		/** A JSON-serialized list of bot commands to be set as the list of the bot's commands. At most 100 commands can be specified. */
 		commands: T.BotCommand[],
@@ -764,7 +764,7 @@ export interface Methods {	/** Use this method to send text messages. On success
 		language_code: string,
 	}): any;
 
-	/** Use this method to delete the list of the bot&#39;s commands for the given scope and user language. After deletion, higher level commands will be shown to affected users. Returns True on success. */
+	/** Use this method to delete the list of the bot's commands for the given scope and user language. After deletion, higher level commands will be shown to affected users. Returns True on success. */
 	deleteMyCommands(args: {
 		/** A JSON-serialized object, describing scope of users for which the commands are relevant. Defaults to BotCommandScopeDefault. */
 		scope: T.BotCommandScope,
@@ -772,7 +772,7 @@ export interface Methods {	/** Use this method to send text messages. On success
 		language_code: string,
 	}): any;
 
-	/** Use this method to get the current list of the bot&#39;s commands for the given scope and user language. Returns Array of BotCommand on success. If commands aren&#39;t set, an empty list is returned. */
+	/** Use this method to get the current list of the bot's commands for the given scope and user language. Returns Array of BotCommand on success. If commands aren't set, an empty list is returned. */
 	getMyCommands(args: {
 		/** A JSON-serialized object, describing scope of users. Defaults to BotCommandScopeDefault. */
 		scope: T.BotCommandScope,
@@ -780,7 +780,7 @@ export interface Methods {	/** Use this method to send text messages. On success
 		language_code: string,
 	}): any;
 
-	/** Use this method to change the bot&#39;s menu button in a private chat, or the default menu button. Returns True on success. */
+	/** Use this method to change the bot's menu button in a private chat, or the default menu button. Returns True on success. */
 	setChatMenuButton(args: {
 		/** Unique identifier for the target private chat. If not specified, default bot's menu button will be changed */
 		chat_id: number,
@@ -788,13 +788,13 @@ export interface Methods {	/** Use this method to send text messages. On success
 		menu_button: T.MenuButton,
 	}): any;
 
-	/** Use this method to get the current value of the bot&#39;s menu button in a private chat, or the default menu button. Returns MenuButton on success. */
+	/** Use this method to get the current value of the bot's menu button in a private chat, or the default menu button. Returns MenuButton on success. */
 	getChatMenuButton(args: {
 		/** Unique identifier for the target private chat. If not specified, default bot's menu button will be returned */
 		chat_id: number,
 	}): any;
 
-	/** Use this method to change the default administrator rights requested by the bot when it&#39;s added as an administrator to groups or channels. These rights will be suggested to users, but they are are free to modify the list before adding the bot. Returns True on success. */
+	/** Use this method to change the default administrator rights requested by the bot when it's added as an administrator to groups or channels. These rights will be suggested to users, but they are are free to modify the list before adding the bot. Returns True on success. */
 	setMyDefaultAdministratorRights(args: {
 		/** A JSON-serialized object describing new default administrator rights. If not specified, the default administrator rights will be cleared. */
 		rights: T.ChatAdministratorRights,
@@ -846,7 +846,7 @@ export interface Methods {	/** Use this method to send text messages. On success
 		reply_markup: T.InlineKeyboardMarkup,
 	}): any;
 
-	/** Use this method to edit animation, audio, document, photo, or video messages. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo or a video otherwise. When an inline message is edited, a new file can&#39;t be uploaded; use a previously uploaded file via its file_id or specify a URL. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. */
+	/** Use this method to edit animation, audio, document, photo, or video messages. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo or a video otherwise. When an inline message is edited, a new file can't be uploaded; use a previously uploaded file via its file_id or specify a URL. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. */
 	editMessageMedia(args: {
 		/** Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
 		chat_id: number | string,
@@ -1092,7 +1092,7 @@ export interface Methods {	/** Use this method to send text messages. On success
 		error_message: string,
 	}): any;
 
-	/** Use this if the data submitted by the user doesn&#39;t satisfy the standards your service requires for any reason. For example, if a birthday date seems invalid, a submitted document is blurry, a scan shows evidence of tampering, etc. Supply some details in the error message to make sure the user knows how to correct the issues. */
+	/** Use this if the data submitted by the user doesn't satisfy the standards your service requires for any reason. For example, if a birthday date seems invalid, a submitted document is blurry, a scan shows evidence of tampering, etc. Supply some details in the error message to make sure the user knows how to correct the issues. */
 	setPassportDataErrors(args: {
 		/** User identifier */
 		user_id: number,
@@ -1118,7 +1118,7 @@ export interface Methods {	/** Use this method to send text messages. On success
 		reply_markup: T.InlineKeyboardMarkup,
 	}): any;
 
-	/** Use this method to set the score of the specified user in a game message. On success, if the message is not an inline message, the Message is returned, otherwise True is returned. Returns an error, if the new score is not greater than the user&#39;s current score in the chat and force is False. */
+	/** Use this method to set the score of the specified user in a game message. On success, if the message is not an inline message, the Message is returned, otherwise True is returned. Returns an error, if the new score is not greater than the user's current score in the chat and force is False. */
 	setGameScore(args: {
 		/** User identifier */
 		user_id: number,

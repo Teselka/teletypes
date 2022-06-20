@@ -1,4 +1,4 @@
-import { Chat, User, Message } from '../lib/index';
+import { Chat, User, Message } from '../lib/index.js';
 
 // some typescript usage to verify that our library is working
 const chat: Chat = {
