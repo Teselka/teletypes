@@ -1,6 +1,6 @@
 {
   "name": "teletypes",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Half-machine parsed types for the Telegram Bot API",
   "main": "./lib/index.js",
   "exports": {
