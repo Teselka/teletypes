@@ -9,6 +9,9 @@
   "scripts": {
     "dump": "node scripts/dump.js",
     "prepublishOnly": "npm run test && npm run dump",
+    "publish": "echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc",
+    "postpublish:win32": "del .npmrc",
+    "postpublish:linux": "rm .npmrc",
     "test": "tsc test/index.ts"
   },
   "repository": {
@@ -38,6 +41,7 @@
   },
   "devDependencies": {
     "libgovno": "^1.2.0",
-    "node-html-parser": "^5.3.3"
+    "node-html-parser": "^5.3.3",
+    "run-script-os": "^1.1.6"
   }
 }
