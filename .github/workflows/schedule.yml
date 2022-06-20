@@ -37,6 +37,6 @@ jobs:
         git add "lib/index.d.ts"
         git commit -m "Update schedule ${{ steps.date.outputs.date }}"
         git push
+    - name: Exit with status 0
       if: ${{ failure() }}
-        - name: Exit with status 0
-          run: 'exit 0'
+      run: 'exit 0'
