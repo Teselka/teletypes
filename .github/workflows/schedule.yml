@@ -38,4 +38,5 @@ jobs:
         git commit -m "Update schedule ${{ steps.date.outputs.date }}"
         git push
       if: ${{ failure() }}
-        run: exit 0
+        - name: Exit with status 0
+          run: 'exit 0'
