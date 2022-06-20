@@ -1,6 +1,6 @@
 {
   "name": "teletypes",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Half-machine parsed types for the Telegram Bot API",
   "main": "./lib/index.js",
   "exports": {
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Teselka/teletypes.git"
+    "url": "git+https://github.com/teletypes/js.git"
   },
   "keywords": [
     "telegram",
@@ -29,9 +29,9 @@
   "types": "./lib/index.d.ts",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Teselka/teletypes/issues"
+    "url": "https://github.com/teletypes/js/issues"
   },
-  "homepage": "https://github.com/Teselka/teletypes#readme",
+  "homepage": "https://github.com/teletypes/js#readme",
   "directories": {
     "lib": "lib",
     "test": "test"
