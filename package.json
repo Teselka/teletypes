@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dump": "node scripts/dump.js",
-    "prepublishOnly": "npm run test && npm run dump",
+    "prepublishOnly": "npm run dump && npm run test",
     "publish": "echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc",
     "postpublish:win32": "del .npmrc",
     "postpublish:linux": "rm .npmrc",
