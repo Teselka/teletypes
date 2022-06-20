@@ -15,3 +15,4 @@ var msg = {
     date: 0,
     chat: chat
 };
+var fn = function () { };
