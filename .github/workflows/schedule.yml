@@ -31,6 +31,8 @@ jobs:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     - name: Add changes to git
       run: |
+        git config --global user.email "schedule@example.com"
+        git config --global user.name "Scheduled task"
         git add lib/index.d.ts
         git commit -m "Update schedule ${{ steps.date.outputs.date }}"
         git push
