@@ -19,7 +19,6 @@ const resolve_type = ((raw, asmethodarg) => {
             if (narr.length > 1) {
                 let text = `Array<${resolve_type(narr[0], asmethodarg)}`;
                 let isfirst = true;
-                console.log(narr)
                 narr.forEach(v => { if (!isfirst) { text += ` | ${resolve_type(v, asmethodarg)}`; } isfirst = false; });
                 text += '>';
                 return text;
