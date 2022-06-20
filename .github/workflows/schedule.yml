@@ -24,6 +24,12 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
     - name: Install npm packages
       run: npm install --save-dev
+    - name: Update version in package.json
+      uses: maks-stupak/gh-action-bump-version@v7.1.5
+      with:
+        tag-prefix: ''
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Build and publish to npm
       run : |
         npm publish
