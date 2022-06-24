@@ -10,13 +10,17 @@ You can dm me if there any issues with this repository.
 
 #### Simple usage example
 ```ts
-import { Message, Methods } from 'teletypes'
+import { TelegramTypes, TelegramMethods } from 'teletypes'
 
-const msg: Message = {
+const msg: TelegramTypes.Message = {
   message_id: 0,
   date: 0,
   chat: { id: 0, types: 'yes' }
 };
 
-const sendmsg: Methods.sendMessage = () => {};
+const fn: TelegramMethods.getMe = () => { return {
+    id: 0,
+    is_bot: true,
+    first_name: 'yes'
+}; };
 ```
