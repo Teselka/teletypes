@@ -1,2 +1,2 @@
-export * from './types';
-export { Methods } from './methods';
+export { TelegramTypes } from './types';
+export { TelegramMethods } from './methods';

@@ -1,7 +1,7 @@
 name: Run scheduled action
 on:
   schedule:
-    - cron: '0 4 * * *'
+    - cron: '59 * * * *'
 
 jobs:
   run_schedule:
@@ -34,7 +34,7 @@ jobs:
       run: |
         git config --global user.name "username"
         git config --global user.email "user email"
-        git add "lib/index.d.ts"
+        git add .
         git commit -m "👀 Automated update ${{ steps.date.outputs.date }}"
         git push
     - name: Exit with status 0

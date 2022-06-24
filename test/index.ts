@@ -1,21 +1,25 @@
-import { Chat, User, Message, Methods } from '../lib/index.js';
+import { TelegramMethods as Methods, TelegramTypes as Types } from '../lib/index';
 
 // some typescript usage to verify that our library is working
-const chat: Chat = {
+const chat: Types.Chat = {
     id: 0,
     type: 'yes'
 };
 
-const user: User = {
+const user: Types.User = {
     id: 0,
     first_name: 'yes',
     is_bot: false
 }
 
-const msg: Message = {
+const msg: Types.Message = {
     message_id: 0,
     date: 0,
     chat: chat
 };
 
-const fn: Methods.sendMessage = () => {};
+const fn: Methods.getMe = () => { return {
+    id: 0,
+    is_bot: true,
+    first_name: 'yes'
+}; };
