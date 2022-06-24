@@ -35,7 +35,7 @@ jobs:
         git config --global user.name "username"
         git config --global user.email "user email"
         git add .
-        git commit -m "👀 Automated update ${{ steps.date.outputs.date }}"
+        git commit -a -m "👀 Automated update ${{ steps.date.outputs.date }}"
         git push
     - name: Exit with status 0
       if: ${{ failure() }}
