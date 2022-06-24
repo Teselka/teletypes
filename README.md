@@ -2,7 +2,7 @@
 Machine parsed types for the Telegram Bot API
 
 Self-updating repository with telegram [types](https://core.telegram.org/bots/api).
-You can dm me if there any issues with this repository.
+You can open an issue if there any issues with this repository.
 
 ### Getting started
 1. Install package from npm `npm install teletypes`
