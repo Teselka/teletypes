@@ -34,5 +34,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
-      - run: echo //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN} > .npmrc
       - run: npm publish
