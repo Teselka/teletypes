@@ -5,3 +5,4 @@ test/
 scripts/
 .gitignore
 .gitattributes
+package-lock.json
