@@ -10,15 +10,15 @@ You can open an issue if there any issues with this repository.
 
 #### Simple usage example
 ```ts
-import { TelegramTypes, TelegramMethods } from 'teletypes'
+import { TelegramTypes as T, TelegramMethods as M } from 'teletypes'
 
-const msg: TelegramTypes.Message = {
+const msg: T.Message = {
   message_id: 0,
   date: 0,
   chat: { id: 0, types: 'yes' }
 };
 
-const fn: TelegramMethods.getMe = () => { return {
+const fn: M.getMe = () => { return {
     id: 0,
     is_bot: true,
     first_name: 'yes'
