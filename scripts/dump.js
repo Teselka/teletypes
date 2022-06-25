@@ -195,8 +195,25 @@ class TelegramParser
 
                                     f++;
                                 }
-                                else
-                                    field[curfields[f++]] = td.textContent;
+                                else {
+                                    const elems = [''];
+                                    for (const t in td.childNodes) {
+                                        const node = td.childNodes[t];
+                                        const last = elems[elems.length-1];
+                                        const href = node.nodeType == ELEMENT_NODE && node.tagName == 'A' ? node.getAttribute('href') : null;
+
+                                        if (href) {
+                                            elems.push([node.textContent, href]);
+                                        }
+                                        else if (typeof last == 'string') {
+                                            elems[elems.length-1] += node.textContent;
+                                        }
+                                        else
+                                            elems.push(node.textContent);
+                                    }
+                                    
+                                    field[curfields[f++]] = elems;
+                                }
                             }
 
                             Object.entries(field).forEach((v, i) => {
@@ -207,7 +224,7 @@ class TelegramParser
                                     field.type = v[1]; 
                                     break; 
                                 }
-                                case 'Required': { field.optional = v[1] == 'True'; break; }
+                                case 'Required': { field.optional = v[1] == 'Optional'; break; }
                                 case 'Description': { field.desc = v[1]; break; }
                                 default:
                                     console.log(`Unknown field name "${v[0]}" at type ${curtype.name}`);
@@ -274,16 +291,30 @@ class TelegramParser
             const section = typelist[i];
             for (const j in section) {
                 const type = section[j];
+
                 for (const k in type.fields) {
+                    let desctext = '';
                     const field = type.fields[k];
                     field.type = this.#resolve_type(field.type, typelist, true);
                     if (field.optional == undefined) {
-                        if (field.desc.length > 0 && typeof field.desc == 'string') {
-                            field.optional = field.desc.startsWith('Optional. ');
+                        if (typeof field.desc == 'object' && field.desc.length > 0) {
+                            field.optional = field.desc[0].startsWith('Optional. ');
                             if (field.optional)
-                                field.desc = field.desc.slice(10, field.desc.length);
+                                field.desc[0] = field.desc[0].slice(10, field.desc[0].length);
                         }
                     }
+
+                    for (const t in field.desc) {
+                        const d = field.desc[t];
+                        if (typeof d == 'object')
+                            desctext += this.#format_href(type.type == 'method', d, typelist);
+                        else {
+                            console.log(d)
+                            desctext += d;
+                        }
+                    }
+
+                    field.desc = desctext;
                 }
 
                 if (type.type == 'method') {
@@ -362,9 +393,7 @@ class TelegramParser
                 for (const k in type.desc) {
                     const d = type.desc[k];
                     if (d[1] && d[1][0] == '#') {
-                        const resolved = this.#type_from_href(d[1], typelist);
-                        if (resolved)
-                            desctext += `{@link ${resolved.name}} `;
+                        desctext += this.#format_href(type.type == 'method', d, typelist);
                     }
 
                     desctext += type.desc[k][0];
@@ -376,6 +405,17 @@ class TelegramParser
 
         //console.log(typelist['Available methods'])
         return typelist;
+    }
+
+    #format_href(ismethod, d, typelist) {
+        let text = '';
+        const resolved = this.#type_from_href(d[1], typelist);
+        const nextword = d ? d[0].match(/^\w+/) : null;
+        if (resolved && nextword) {
+            d[0] = d[0].slice(nextword[0].length);
+            text += `{@link ${(ismethod ? resolved.type != 'method' : resolved.type == 'method') ? 'T.' : ''}${resolved.name}|${nextword[0]}}`;
+        }
+        return text;
     }
 
     #type_from_href(href, typelist) {
@@ -644,7 +684,7 @@ r.get('https://core.telegram.org/bots/api', {}, (err, data) => {
         }
     });
 
-    let structstext = `${PARSER_HEADER}\n\nexport namespace TelegramTypes {`;
+    let structstext = `${PARSER_HEADER}\nimport { TelegramMethods as T } from \'./methods\';\nexport namespace TelegramTypes {`;
 
     for (const i in unknowns) {
         const unknown = unknowns[i];
@@ -669,7 +709,8 @@ r.get('https://core.telegram.org/bots/api', {}, (err, data) => {
         let fieldtext = '';
         for (const j in struct.fields) {
             const field = struct.fields[j];
-            fieldtext += `\n\t/** ${field.desc} */\n\t${field.name}${field.optional == true ? '?' : ''}: ${field.type},`;
+            const islast = j == struct.fields.length-1;
+            fieldtext += `\n\t/** ${field.desc} */\n\t${field.name}${field.optional == true ? '?' : ''}: ${field.type}${islast ? '' : ','}`;
         }
 
         structstext += `\n/** ${structs[i].desc} */\ninterface ${structs[i].name} { ${fieldtext}\n}`;
@@ -677,15 +718,17 @@ r.get('https://core.telegram.org/bots/api', {}, (err, data) => {
 
     structstext += '\n}';
 
-    let methodstext = `${PARSER_HEADER}\nimport { TelegramTypes as T } from \'./types\';\n\nexport namespace TelegramMethods {`;
+    let methodstext = `${PARSER_HEADER}\nimport { TelegramTypes as T } from \'./types\';\n\nexport namespace TelegramMethods {\n`;
     for (const i in methods) {
         const method = methods[i];
         let fieldtext = '';
         for (const j in method.fields) {
             const islast = j == method.fields.length-1;
             const field = method.fields[j];
-            fieldtext += `\n\t/** ${field.desc} */\n\t${field.name}${field.optional == true ? '?' : ''}: ${parser.string_type(field.type, 'T.')}${islast ? '' : ','}\n`;
+            fieldtext += `\n\t/** ${field.desc} */\n\t${field.name}${field.optional == true ? '?' : ''}: ${parser.string_type(field.type, 'T.')}${islast ? '' : ','}`;
         }
+        if (fieldtext.length != 0)
+            fieldtext += '\n';
 
         let firstret = true;
         let rettext = '';
@@ -695,10 +738,10 @@ r.get('https://core.telegram.org/bots/api', {}, (err, data) => {
             firstret = false;
         }
         
-        methodstext += `\n/** ${method.desc} */\ntype ${method.name} = (a: {${fieldtext}}) => ${rettext};\n`;
+        methodstext += `/** ${method.desc} */\ntype ${method.name} = (${fieldtext.length != 0 ? 'a:{' + fieldtext + '}' : ''}) => ${rettext};\n`;
     }
 
-    methodstext += '\n}';
+    methodstext += '}';
 
     //console.log(structstext)
 
