@@ -15,7 +15,7 @@ jobs:
     steps:
     - name: Get current date
       id: date
-      run: echo "::set-output name=date::$(date +'%m-%d-%mm')"
+      run: echo "::set-output name=date::$(date +'%m-%d-%h')"
     - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
