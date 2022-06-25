@@ -5,4 +5,5 @@ test/
 scripts/
 .gitignore
 .gitattributes
+.npmrc
 package-lock.json
