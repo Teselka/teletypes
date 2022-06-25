@@ -39,3 +39,5 @@ jobs:
           registry-url: https://npm.pkg.github.com
       - name: Create a package called @${{ github.repository }}
         run: npm init --scope ${{ github.repository_owner }} -y
+      - name: Publish the package
+        run: npm publish
