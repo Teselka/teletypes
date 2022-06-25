@@ -34,7 +34,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
-      - run: echo reigstry=//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN} > .npmrc
-      - run: npm login --scope@teletypes
+      - run: echo @teletypes:reigstry=//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN} > .npmrc
       - run: npm publish
       - run: rm .npmrc
