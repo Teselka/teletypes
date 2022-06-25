@@ -11,8 +11,6 @@
   "scripts": {
     "dump": "node scripts/dump.js",
     "prepublishOnly": "npm run test",
-    "publish:linux": "echo reigstry=//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN} > .npmrc",
-    "postpublish:linux": "rm .npmrc",
     "test": "tsc test/index.ts --noEmit"
   },
   "repository": {
