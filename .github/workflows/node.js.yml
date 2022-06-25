@@ -36,4 +36,4 @@ jobs:
         with:
           scope: ${{ github.repository_owner }}
           registry-url: https://npm.pkg.github.com
-      run: npm init --scope ${{ github.repository_owner }} -y
+        run: npm init --scope ${{ github.repository_owner }} -y
