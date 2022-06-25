@@ -11,14 +11,12 @@
   "scripts": {
     "dump": "node scripts/dump.js",
     "prepublishOnly": "npm run test",
-    "test": "tsc test/index.ts --noEmit"
+    "test": "tsc test/index.ts --noEmit",
+    "rename": "node scripts/setname.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/teletypes/js.git"
-  },
-  "publishConfig": {
-    "@teletypes:registry": "https://npm.pkg.github.com"
   },
   "keywords": [
     "telegram",
