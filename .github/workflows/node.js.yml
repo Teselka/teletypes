@@ -33,7 +33,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
-          with:
+        with:
           scope: ${{ github.repository_owner }}
           registry-url: https://npm.pkg.github.com
       run: npm init --scope ${{ github.repository_owner }} -y
