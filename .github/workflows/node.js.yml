@@ -27,7 +27,11 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm test
+  
   publish:
     needs: build
     runs-on: ubuntu-latest
-    - run: npm publish
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - run: npm publish
