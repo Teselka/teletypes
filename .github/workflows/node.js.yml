@@ -42,7 +42,6 @@ jobs:
       - name: Publish the package
         run: |
           echo //npm.pkg.github.com/:_authToken=$NODE_AUTH_TOKEN > ~/.npmrc
-          npm ci
           npm publish
           rm ~/.npmrc
         env:
