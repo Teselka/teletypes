@@ -309,7 +309,6 @@ class TelegramParser
                         if (typeof d == 'object')
                             desctext += this.#format_href(type.type == 'method', d, typelist);
                         else {
-                            console.log(d)
                             desctext += d;
                         }
                     }
