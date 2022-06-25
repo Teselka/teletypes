@@ -17,6 +17,9 @@
     "type": "git",
     "url": "git+https://github.com/teletypes/js.git"
   },
+  "publishConfig": {
+    "@teletypes:registry": "https://npm.pkg.github.com"
+  },
   "keywords": [
     "telegram",
     "teletypes",
