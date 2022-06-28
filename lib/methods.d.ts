@@ -468,7 +468,7 @@ type sendPoll = (a:{
 type sendDice = (a:{
 	/** Unique identifier for the target chat or username of the target channel (in the format @channelusername) */
 	chat_id: number | string,
-	/** Emoji on which the dice throw animation is based. Currently, must be one of “”, “”, “”, “”, “”, or “”. Dice can have values 1-6 for ��”, “” and “”, values 1-5 for “” and “”, and values 1-64 for “”. Defaults to “” */
+	/** Emoji on which the dice throw animation is based. Currently, must be one of “”, “”, “”, “”, “”, or “”. Dice can have values 1-6 for ���”, “” and “”, values 1-5 for “” and “”, and values 1-64 for “”. Defaults to “” */
 	emoji?: string,
 	/** Sends the message . Users will receive a notification with no sound. */
 	disable_notification?: boolean,
