@@ -32,11 +32,12 @@ jobs:
         NODE_AUTH_TOKEN: '${{ secrets.NPM_TOKEN }}'
     - name: Add changes to git
       run: |
-        git config --global user.name "username"
-        git config --global user.email "user email"
+        git config --global user.name "ghost"
+        git config --global user.email "ghost_email"
         git add lib/types.d.ts lib/methods.d.ts
         git commit -a -m "👀 Automated update ${{ steps.date.outputs.date }}"
         git push
-    - name: Exit with status 0
-      if: ${{ failure() }}
-      run: 'exit 0'
+    - name: Publish to npm
+      run: |
+        npm version patch
+        npm publish
