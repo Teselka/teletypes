@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/teletypes/js.git"
+    "url": "git+https://github.com/Teselka/teletypes.git"
   },
   "keywords": [
     "telegram",
@@ -32,9 +32,9 @@
   "types": "./lib/index.d.ts",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/teletypes/js/issues"
+    "url": "https://github.com/Teselka/teletypes/issues"
   },
-  "homepage": "https://github.com/teletypes/js#readme",
+  "homepage": "https://github.com/Teselka/teletypes#readme",
   "directories": {
     "lib": "lib",
     "test": "test"
