@@ -45,7 +45,7 @@ jobs:
         run: npm init --scope ${{ github.repository_owner }} -y
       - name: Publish the package
         run: |
-          echo //npm.pkg.github.com/:_authToken=$NODE_AUTH_TOKEN > ~/.npmrc
+          echo "//npm.pkg.github.com/:_authToken=$NODE_AUTH_TOKEN\n@teselka:registry=https://npm.pkg.github.com" > ~/.npmrc
           npm publish
           rm ~/.npmrc
         env:
