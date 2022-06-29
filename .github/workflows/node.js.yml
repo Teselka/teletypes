@@ -42,7 +42,7 @@ jobs:
         run: npm init --scope @${{ github.repository_owner }} -y
       - name: Publish the package
         run: |
-          echo "reigstry=//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" > ~/.npmrc
+          echo reigstry=//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN} > ~/.npmrc
           npm publish
           rm ~/.npmrc
         env:
