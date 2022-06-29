@@ -42,7 +42,7 @@ jobs:
       - name: Rename package to ${{ github.repository_name }}
         run: npm run rename ${{ github.repository_name }}
       - name: Create a package called @${{ github.repository }}
-        run: npm init --scope ${{ github.repository_owner }} -y
+        run: npm init --scope @${{ github.repository_owner }} -y
       - name: Publish the package
         run: |
           npm config set registry "https://npm.pkg.github.com"
