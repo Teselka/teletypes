@@ -45,9 +45,7 @@ jobs:
         run: npm init --scope ${{ github.repository_owner }} -y
       - name: Publish the package
         run: |
-          npm adduser --always-auth --scope @${{ github.repository_owner }} --registry "https://npm.pkg.github.com"
-          echo $'\n//npm.pkg.github.com/:_authToken=$NODE_AUTH_TOKEN' >> ~/.npmrc
+          npm config set registry "https://npm.pkg.github.com"
           npm publish
-          rm ~/.npmrc
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
