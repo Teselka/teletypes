@@ -41,7 +41,6 @@
   },
   "devDependencies": {
     "libgovno": "^1.2.0",
-    "node-html-parser": "^5.3.3",
-    "run-script-os": "^1.1.6"
+    "node-html-parser": "^5.3.3"
   }
 }
