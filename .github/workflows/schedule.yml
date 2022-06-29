@@ -41,3 +41,5 @@ jobs:
       run: |
         npm version patch
         npm publish
+      env:
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
