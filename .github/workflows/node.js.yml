@@ -42,8 +42,8 @@ jobs:
         run: npm init --scope @${{ github.repository_owner }} -y
       - name: Publish the package
         run: |
-          npm config set registry "https://npm.pkg.github.com"
+          echo "reigstry=//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
           npm publish
+          rm ~/.npmrc
         env:
-          GITHUB_TOKEN: ${{ github.token }}
           NODE_AUTH_TOKEN: ${{ github.token }}
