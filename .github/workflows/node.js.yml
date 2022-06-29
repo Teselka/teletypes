@@ -43,6 +43,7 @@ jobs:
         run: npm init --scope ${{ github.repository_owner }} -y
       - name: Publish the package
         run: |
+          npm version patch
           echo //npm.pkg.github.com/:_authToken=$NODE_AUTH_TOKEN > ~/.npmrc
           npm publish
           rm ~/.npmrc
