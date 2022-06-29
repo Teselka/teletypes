@@ -44,7 +44,6 @@ jobs:
         run: |
           npm config set registry "https://npm.pkg.github.com" --silent
           npm publish
-          rm ~/.npmrc
         env:
           GITHUB_TOKEN: ${{ github.token }}
           NODE_AUTH_TOKEN: ${{ github.token }}
