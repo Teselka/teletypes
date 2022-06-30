@@ -28,8 +28,6 @@ jobs:
       run : |
         npm run dump
         npm run test
-      env :
-        NODE_AUTH_TOKEN: '${{ secrets.NPM_TOKEN }}'
     - name: Add changes to git
       run: |
         git config --global user.name "ghost"
@@ -37,9 +35,9 @@ jobs:
         git add lib/types.d.ts lib/methods.d.ts
         git commit -a -m "👀 Automated update ${{ steps.date.outputs.date }}"
         git push
+    - name: Bump npm patch version
+      run: npm version patch
     - name: Publish to npm
-      run: |
-        npm version patch
-        npm publish
+      run: npm publish
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
