@@ -43,7 +43,10 @@ jobs:
       - name: Change package registry to github 
         run: npm config set registry "https://npm.pkg.github.com" --silent
       - name: Bump npm patch version
-        run: npm version patch --force
+        run: | 
+          git config --global user.name "ghost"
+          git config --global user.email "email"
+          npm version patch --force
       - name: Publish the package
         run: npm publish
         env:
