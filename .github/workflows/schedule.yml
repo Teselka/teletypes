@@ -24,7 +24,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
     - name: Install npm packages
       run: npm install --save-dev
-    - name: Build and publish to npm
+    - name: Dump and test
       run : |
         npm run dump
         npm run test
@@ -42,4 +42,4 @@ jobs:
         npm version patch
         npm publish
       env:
-        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
